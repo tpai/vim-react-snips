@@ -27,7 +27,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 In insert mode
 
 ```
-rac<c-f>
+rapc<c-f>
 ```
 
 Then it will expand to
