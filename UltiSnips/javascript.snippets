@@ -2,7 +2,7 @@
 
 # Redux
 snippet ec "Export Constant Value" b
-export const ${1:`!v expand('%:t:r')`} = `$2$1`;
+export const ${1:SET_DATA} = \`$2$1\`;
 endsnippet
 
 snippet rdrd "Redux Reducer" b
@@ -11,7 +11,7 @@ import {
 } from '$5';
 
 const initState = {
-  ${1:`!v expand('%:t:r')`}: ${2:null},
+  ${1:state}: ${2:null},
 };
 
 const reducer = (state = initState, action) => {
@@ -32,11 +32,13 @@ snippet rdct "Redux Container" b
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ${1:`!v expand('%:t:r')`} from '$2$1';
-import ${4:`!v expand('%:t:r')`} from '$5';
+import ${1:Component} from '$2$1';
+import {
+  ${4:action}
+} from '$5';
 
 const mapStateToProps = (state) => ({
-  ${3:`!v expand('%:t:r')`}: state.$3,
+  ${3:data}: state.$3,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -47,26 +49,32 @@ export default connect(mapStateToProps, mapDispatchToProps)($1);
 endsnippet
 
 # React
-
-snippet rac "React Class Component" b
-import React, { Component } from 'react';
+snippet rapc "React Pure Class Component" b
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from './${2:$1}.css';
 
-class ${1:`!v expand('%:t:r')`} extends Component {
+class ${1:ComponentName} extends PureComponent {
   static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
+    ${3:children}: PropTypes.${4:any},
   };
+
+  static defaultProps = {
+    $3: ${5:null},
+  }
 
   constructor(props) {
     super(props);
   }
 
   render() {
+    const {
+      $3,
+    } = this.props;
+
     return (
-      <div className={styles.base}>
-        $3
+      <div className={styles['default']}>
+        $6
       </div>
     );
   }
