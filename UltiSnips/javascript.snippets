@@ -40,8 +40,9 @@ export const $3Fail = (error) => ({ type: $1_FAIL, payload: error });
 endsnippet
 
 # Redux
-snippet ec "Export Constant Value" b
-export const ${1:SET_DATA} = \`$2$1\`;
+snippet rdac "Redux Action" b
+export const ${1:SET_DATA} = \`${2:reducer}/$1\`;
+export const ${3:setData} = () => ({ type: $1 });
 endsnippet
 
 snippet rdrd "Redux Reducer" b
