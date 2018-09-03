@@ -1,0 +1,76 @@
+# Redux Saga
+
+# Redux
+snippet ec "Export Constant Value" b
+export const ${1:`!v expand('%:t:r')`} = `$2$1`;
+endsnippet
+
+snippet rdrd "Redux Reducer" b
+import {
+  ${4:SET_DATA},
+} from '$5';
+
+const initState = {
+  ${1:`!v expand('%:t:r')`}: ${2:null},
+};
+
+const reducer = (state = initState, action) => {
+  switch (action.type) {
+    case $4:
+      return {
+        $1: ${3:action.payload,}
+      };
+    default:
+      return state;
+  }
+};
+
+export default reducer;
+endsnippet
+
+snippet rdct "Redux Container" b
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import ${1:`!v expand('%:t:r')`} from '$2$1';
+import ${4:`!v expand('%:t:r')`} from '$5';
+
+const mapStateToProps = (state) => ({
+  ${3:`!v expand('%:t:r')`}: state.$3,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  $4,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)($1);
+endsnippet
+
+# React
+
+snippet rac "React Class Component" b
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styles from './${2:$1}.css';
+
+class ${1:`!v expand('%:t:r')`} extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className={styles.base}>
+        $3
+      </div>
+    );
+  }
+}
+
+export default $1;
+endsnippet
