@@ -27,12 +27,6 @@ export function *watch${1/\w+/\u$0/} () {
 }
 endsnippet
 
-snippet sgec "Saga Export Constant Values" b
-export const ${1:GET_DATA}_LOADING = \`${2:reducer}/$1_LOADING\`;
-export const $1_SUCCESS = \`$2/$1_SUCCESS\`;
-export const $1_FAILED = \`$2/$1_FAILED\`;
-endsnippet
-
 snippet sga "Saga Actions" b
 export const ${1:SET_DATA} = \`${2:reducer}/$1\`;
 export const $1_LOADING = \`$2/$1_LOADING\`;
