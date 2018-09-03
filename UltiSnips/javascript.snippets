@@ -28,15 +28,15 @@ export function *watch${1/\w+/\u$0/} () {
 endsnippet
 
 snippet sgac "Saga Actions" b
-export const ${1:SET_DATA} = \`${2:reducer}/$1\`;
+export const ${1:SET_DATA}         = \`${2:reducer}/$1\`;
 export const $1_LOADING = \`$2/$1_LOADING\`;
 export const $1_SUCCESS = \`$2/$1_SUCCESS\`;
-export const $1_FAILED = \`$2/$1_FAILED\`;
+export const $1_FAILED  = \`$2/$1_FAILED\`;
 
-export const ${3:setData} = () => ({ type: $1 });
-export const $3Loading = () => ({ type: $1_LOADING });
-export const $3Success = (data) => ({ type: $1_SUCCESS, payload: data });
-export const $3Fail = (error) => ({ type: $1_FAIL, payload: error });
+export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}        = ()      => ({ type: $1 });
+export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Loading = ()      => ({ type: $1_LOADING });
+export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Success = (data)  => ({ type: $1_SUCCESS, payload: data });
+export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Failed  = (error) => ({ type: $1_FAILED, payload: error });
 endsnippet
 
 # Redux
