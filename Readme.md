@@ -32,7 +32,7 @@ rapc<c-f>
 
 Then it will expand to
 
-```
+```jsx
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ComponentName.css';
@@ -40,16 +40,13 @@ import styles from './ComponentName.css';
 class ComponentName extends PureComponent {
   static propTypes = {
     children: PropTypes.any,
-  };
-
+  }
   static defaultProps = {
     children: null,
   }
-
   constructor(props) {
     super(props);
   }
-
   render() {
     const {
       children,
