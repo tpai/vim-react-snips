@@ -27,7 +27,7 @@ export function *watch${1/\w+/\u$0/} () {
 }
 endsnippet
 
-snippet sga "Saga Actions" b
+snippet sgac "Saga Actions" b
 export const ${1:SET_DATA} = \`${2:reducer}/$1\`;
 export const $1_LOADING = \`$2/$1_LOADING\`;
 export const $1_SUCCESS = \`$2/$1_SUCCESS\`;
@@ -45,7 +45,7 @@ export const ${1:SET_DATA} = \`${2:reducer}/$1\`;
 export const ${3:setData} = () => ({ type: $1 });
 endsnippet
 
-snippet rdrd "Redux Reducer" b
+snippet rdrdc "Redux Reducer" b
 import {
   ${4:SET_DATA},
 } from '$5';
@@ -89,7 +89,7 @@ export default connect(mapStateToProps, mapDispatchToProps)($1);
 endsnippet
 
 # React
-snippet rapc "React Pure Class Component" b
+snippet rapc "React Pure Component" b
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from './${2:$1}.css';
