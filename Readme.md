@@ -35,23 +35,15 @@ Then it will expand to
 ```jsx
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import styles from './ComponentName.css';
 
-class ComponentName extends PureComponent {
+import styles from './styles.css';
+
+class Component extends PureComponent {
   static propTypes = {
-    children: PropTypes.any,
   }
   static defaultProps = {
-    children: null,
-  }
-  constructor(props) {
-    super(props);
   }
   render() {
-    const {
-      children,
-    } = this.props;
-
     return (
       <div className={styles['default']}>
         
@@ -60,5 +52,5 @@ class ComponentName extends PureComponent {
   }
 }
 
-export default ComponentName;
+export default Component;
 ```

@@ -1,16 +1,63 @@
+# Redux
+snippet ax "Action" b
+export const ${1:SET_DATA} = '${2:reducer}/$1';
+export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}  = () => ({ type: $1 });
+endsnippet
+
+snippet prcp "React Pure Component" b
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
+import styles from './styles.css';
+
+class ${1:Component} extends PureComponent {
+  static propTypes = {
+  }
+  static defaultProps = {
+  }
+  render() {
+    return (
+      <div className={styles['default']}>
+        $2
+      </div>
+    );
+  }
+}
+
+export default $1;
+endsnippet
+
+snippet ct "Container" b
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+
+import ${1:Component} from '$2$1';
+
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({ dispatch });
+const mergeProps = (state, { dispatch }, ownProps) => {
+  return {
+    $3
+  };
+};
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps,
+  )
+)($1);
+endsnippet
+
 # Redux Saga
 snippet sg "Saga" b
-import { call, put, takeLatest } from 'redux-saga/effects';
-
-import {
   ${1:getData}Loading,
   $1Success,
   $1Fail,
-	${2:GET_DATA},
-} from '$3';
-import {
+  ${1/([a-z]*?)([A-Z])([a-z]*)/\U$1_\E\u$2\U$3\E/g},
+
   $1 as $1API,
-} from '$4';
 
 export function* $1 (action) {
   try {
@@ -23,11 +70,11 @@ export function* $1 (action) {
 }
 
 export function *watch${1/\w+/\u$0/} () {
-  yield takeLatest($2, $1);
+  yield takeLatest(${1/([a-z]*?)([A-Z])([a-z]*)/\U$1_\E\u$2\U$3\E/g}, $1);
 }
 endsnippet
 
-snippet sgac "Saga Actions" b
+snippet sgax "Saga Actions" b
 export const ${1:SET_DATA}         = '${2:reducer}/$1';
 export const $1_LOADING = '$2/$1_LOADING';
 export const $1_SUCCESS = '$2/$1_SUCCESS';
@@ -37,85 +84,4 @@ export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}        = ()      =
 export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Loading = ()      => ({ type: $1_LOADING });
 export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Success = (data)  => ({ type: $1_SUCCESS, payload: data });
 export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Failed  = (error) => ({ type: $1_FAILED, payload: error });
-endsnippet
-
-# Redux
-snippet rdac "Redux Action" b
-export const ${1:SET_DATA} = '${2:reducer}/$1';
-export const ${3:setData} = () => ({ type: $1 });
-endsnippet
-
-snippet rdrdc "Redux Reducer" b
-import {
-  ${4:SET_DATA},
-} from '$5';
-
-const initState = {
-  ${1:state}: ${2:null},
-};
-
-const reducer = (state = initState, action) => {
-  switch (action.type) {
-    case $4:
-      return {
-        $1: ${3:action.payload,}
-      };
-    default:
-      return state;
-  }
-};
-
-export default reducer;
-endsnippet
-
-snippet rdct "Redux Container" b
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import ${1:Component} from '$2$1';
-import {
-  ${4:action}
-} from '$5';
-
-const mapStateToProps = (state) => ({
-  ${3:data}: state.$3,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  $4,
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)($1);
-endsnippet
-
-# React
-snippet rapc "React Pure Component" b
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import styles from './${2:$1}.css';
-
-class ${1:ComponentName} extends PureComponent {
-  static propTypes = {
-    ${3:children}: PropTypes.${4:any},
-  }
-  static defaultProps = {
-    $3: ${5:null},
-  }
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      $3,
-    } = this.props;
-
-    return (
-      <div className={styles['default']}>
-        $6
-      </div>
-    );
-  }
-}
-
-export default $1;
 endsnippet
