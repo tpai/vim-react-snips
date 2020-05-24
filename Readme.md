@@ -27,7 +27,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 In insert mode
 
 ```
-rapc<c-f>
+react_c<C-f>
 ```
 
 Then it will expand to
@@ -36,8 +36,6 @@ Then it will expand to
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.css';
-
 class Component extends PureComponent {
   static propTypes = {
   }
@@ -45,7 +43,7 @@ class Component extends PureComponent {
   }
   render() {
     return (
-      <div className={styles['default']}>
+      <div>
         
       </div>
     );
