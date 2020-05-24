@@ -1,14 +1,26 @@
-# Redux
-snippet ax "Action" b
-export const ${1:SET_DATA} = '${2:reducer}/$1';
-export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}  = () => ({ type: $1 });
-endsnippet
-
-snippet prcp "React Pure Component" b
-import React, { PureComponent } from 'react';
+snippet react_f "React Functional Component" b
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.scss';
+export default function ${1:Component}() {
+  useEffect(() => {
+  }, []);
+
+  return (
+    <div>
+      $2
+    </div>
+  );
+}
+$1.propTypes = {
+};
+$1.defaultProps = {
+};
+endsnippet
+
+snippet react_c "React Class Component" b
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 class ${1:Component} extends PureComponent {
   static propTypes = {
@@ -17,7 +29,7 @@ class ${1:Component} extends PureComponent {
   }
   render() {
     return (
-      <div className={styles['default']}>
+      <div>
         $2
       </div>
     );
@@ -27,7 +39,7 @@ class ${1:Component} extends PureComponent {
 export default $1;
 endsnippet
 
-snippet ct "Container" b
+snippet react_cc "React Container" b
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -51,38 +63,16 @@ export default compose(
 )($1);
 endsnippet
 
-# Redux Saga
-snippet sg "Saga" b
-  ${1:getData}Loading,
-  $1Success,
-  $1Fail,
-  ${1/([a-z]*?)([A-Z])([a-z]*)/\U$1_\E\u$2\U$3\E/g},
+snippet react_test "React Unit Test" b
+import React from 'react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
-  $1 as $1API,
+import Component from './index';
 
-export function* $1 (action) {
-  try {
-    yield put($1Loading());
-    const result = yield call($1API, action.payload);
-    yield put($1Success(result));
-  }  catch (e) {
-    yield put($1Fail(e));
-  }
-}
+afterEach(cleanup);
 
-export function *watch${1/\w+/\u$0/} () {
-  yield takeLatest(${1/([a-z]*?)([A-Z])([a-z]*)/\U$1_\E\u$2\U$3\E/g}, $1);
-}
-endsnippet
-
-snippet sgax "Saga Actions" b
-export const ${1:SET_DATA}         = '${2:reducer}/$1';
-export const $1_LOADING = '$2/$1_LOADING';
-export const $1_SUCCESS = '$2/$1_SUCCESS';
-export const $1_FAILED  = '$2/$1_FAILED';
-
-export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}        = ()      => ({ type: $1 });
-export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Loading = ()      => ({ type: $1_LOADING });
-export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Success = (data)  => ({ type: $1_SUCCESS, payload: data });
-export const ${1/(.*?)_([a-zA-Z])([A-Z]*)/\L$1\E\u$2\L$3\E/g}Failed  = (error) => ({ type: $1_FAILED, payload: error });
+test('$1', () => {
+  const { $2 } = await render(<Component />);
+});
 endsnippet
